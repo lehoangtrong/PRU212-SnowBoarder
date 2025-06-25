@@ -8,11 +8,13 @@ TagManager:
   - Obstacles
   - Star
   - Audio
+  - Background
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
   - Player
+  - ModelPlayer
   - Water
   - UI
   - Background
@@ -56,6 +58,14 @@ TagManager:
     locked: 0
   - name: Background
     uniqueID: 1468954733
+  - name: Background
+    uniqueID: 1255215587
+    locked: 0
+  - name: UserPlayer
+    uniqueID: 1491855637
+    locked: 0
+  - name: UI
+    uniqueID: 1629594383
     locked: 0
   m_RenderingLayers:
   - Default
