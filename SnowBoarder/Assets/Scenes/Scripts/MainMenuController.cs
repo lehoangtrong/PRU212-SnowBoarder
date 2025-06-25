@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MainMenuController : MonoBehaviour
 {
@@ -54,5 +55,13 @@ public class MainMenuController : MonoBehaviour
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #endif
+    }
+
+    public void OnStartGameButtonClick()
+    {
+        // Thay "GameScene" bằng tên chính xác của Scene màn hình chơi game của bạn
+        Debug.Log("Đã nhấn nút Start! Đang tải GameScene...");
+        SceneManager.LoadScene("GamePlay");
+        // Bạn cũng có thể tải bằng index: SceneManager.LoadScene(1);
     }
 }
