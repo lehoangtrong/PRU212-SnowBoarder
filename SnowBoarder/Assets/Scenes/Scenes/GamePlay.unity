@@ -1373,6 +1373,7 @@ GameObject:
   - component: {fileID: 999319714}
   - component: {fileID: 999319712}
   - component: {fileID: 999319715}
+  - component: {fileID: 999319716}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1570,6 +1571,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &999319716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 999319707}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91e6fc0aaf3fcd5439f0d7fcb9248955, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1039827724 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6104007945945928641, guid: 81aff579ece45c941a4e925231a46b17, type: 3}
@@ -27859,7 +27872,7 @@ Transform:
   m_GameObject: {fileID: 1589652901}
   serializedVersion: 2
   m_LocalRotation: {x: 0.00000004704931, y: -1.6526546e-14, z: 7.7756255e-22, w: 1}
-  m_LocalPosition: {x: -34.488785, y: 11.628284, z: -10}
+  m_LocalPosition: {x: -36.105457, y: 11.628284, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -28043,7 +28056,7 @@ Transform:
   m_GameObject: {fileID: 1595703178}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -34.488785, y: 11.628284, z: -10}
+  m_LocalPosition: {x: -36.105457, y: 11.628284, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

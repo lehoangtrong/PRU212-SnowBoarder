@@ -18,6 +18,7 @@ public class FinishLine : MonoBehaviour
         }
     }
 
+
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
@@ -29,12 +30,13 @@ public class FinishLine : MonoBehaviour
             }
             // Play the win sound effect
             audioManager.PlaySFX(audioManager.winSoundClip);
-            Invoke("ReloadScene", reloadDelay); // Delay to allow player to see the finish line
+            Invoke("Victory", reloadDelay); // Delay to allow player to see the finish line
         }
     }
 
-    void ReloadScene()
+    void Victory()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        GameManager.Instance.OnPlayerWin(); // Call the method to handle player victory
     }
 }
