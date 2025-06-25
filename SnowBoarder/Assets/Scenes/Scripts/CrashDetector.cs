@@ -45,7 +45,8 @@ public class CrashDetector : MonoBehaviour
 
     void ReloadScene()
     {
-        GameManager.Instance.isGameOver = true;
+        GameManager.Instance.isGameOver = true; // Set game over state in GameManager
+        GameManager.Instance.HandleGameOver(); // Call the game over handler in GameManager
     }
 
     void HandleStarCollection(GameObject star)

@@ -6,7 +6,7 @@ public class FinishLine : MonoBehaviour
     [SerializeField] private float reloadDelay = 10f; // Delay before reloading the scene
 
     AudioManager audioManager;
-
+    private bool hasFinished = false; // Flag to prevent multiple triggers
     void Awake()
     {
         // Find the AudioManager in the scene
@@ -21,7 +21,7 @@ public class FinishLine : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if (collision.CompareTag("Player") && !hasFinished)
         {
             // Play all particle effects attached to this GameObject 
             foreach (var effect in GetComponentsInChildren<ParticleSystem>())
@@ -31,6 +31,7 @@ public class FinishLine : MonoBehaviour
             // Play the win sound effect
             audioManager.PlaySFX(audioManager.winSoundClip);
             Invoke("Victory", reloadDelay); // Delay to allow player to see the finish line
+            hasFinished = true; // Set the flag to true to prevent multiple triggers
         }
     }
 

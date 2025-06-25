@@ -82,24 +82,47 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    // Giả sử các biến rb2d, cinemachineCamera, zoomSmoothness đã được khai báo ở trên
+
     void SetCameraZoom()
     {
+        // Nếu chưa có camera thì không làm gì cả
         if (cinemachineCamera == null) return;
 
-        // Check if player is grounded before adjusting camera zoom
-        bool isGrounded = IsPlayerGrounded();
-        if (!isGrounded) return;
+        // Biến để lưu kích thước camera mục tiêu
+        float targetOrthographicSize;
 
-        // Automatically adjust camera zoom based on player speed
-        float speed = rb2d.linearVelocity.magnitude;
-        float targetZoomLevel = Mathf.Clamp(speed / 10f, 1f, 3f); // Target zoom level based on speed
-        float targetOrthographicSize = targetZoomLevel * 5f;
+        // Kiểm tra trạng thái của game
+        if (GameManager.Instance.isGameOver)
+        {
+            // Khi game kết thúc, mục tiêu zoom là 5f
+            targetOrthographicSize = 5f;
+        }
+        else
+        {
+            // Khi game đang chạy bình thường
+            bool isGrounded = IsPlayerGrounded(); // Giả sử bạn có hàm này
 
-        // Smooth transition to target zoom
+            // Nếu người chơi không trên mặt đất, giữ nguyên zoom hiện tại để tránh thay đổi đột ngột
+            if (!isGrounded)
+            {
+                // Đặt mục tiêu bằng chính giá trị hiện tại để camera đứng yên
+                targetOrthographicSize = cinemachineCamera.Lens.OrthographicSize;
+            }
+            else
+            {
+                // Tự động điều chỉnh zoom dựa trên tốc độ của người chơi
+                float speed = rb2d.linearVelocity.magnitude;
+                float targetZoomLevel = Mathf.Clamp(speed / 10f, 1f, 3f);
+                targetOrthographicSize = targetZoomLevel * 5f;
+            }
+        }
+
+        // Luôn luôn thực hiện Lerp ở cuối hàm để đảm bảo mọi thay đổi đều mượt mà
         cinemachineCamera.Lens.OrthographicSize = Mathf.Lerp(
-            cinemachineCamera.Lens.OrthographicSize,
-            targetOrthographicSize,
-            zoomSmoothness * Time.deltaTime
+            cinemachineCamera.Lens.OrthographicSize, // Giá trị hiện tại
+            targetOrthographicSize,                 // Giá trị mục tiêu
+            zoomSmoothness * Time.deltaTime         // Tốc độ thay đổi
         );
     }
 

@@ -42,6 +42,7 @@ public static class SaveSystem
 
                 // Chuyển chuỗi JSON trở lại thành đối tượng C#
                 ScoreList scoreList = JsonUtility.FromJson<ScoreList>(json);
+                Debug.Log("Leaderboard loaded from: " + scoreList);
                 return scoreList;
             }
             catch (System.Exception e)

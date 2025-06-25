@@ -50,6 +50,8 @@ public class LeaderboardManager : MonoBehaviour
         // Sắp xếp danh sách điểm từ cao đến thấp
         List<ScoreEntry> sortedScores = scoreList.scores.OrderByDescending(s => s.score).ToList();
 
+        Debug.Log("Loaded " + sortedScores.Count + " scores. Attempting to display them.");
+
         // Hiển thị từng dòng điểm lên UI
         for (int i = 0; i < sortedScores.Count; i++)
         {

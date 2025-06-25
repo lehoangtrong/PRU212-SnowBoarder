@@ -33,6 +33,12 @@ public class ForceSpeedController : MonoBehaviour
 
     void CheckPosition()
     {
+        if (GameManager.Instance.isGameOver)
+        {
+            // Nếu trò chơi đã kết thúc, không cần kiểm tra vị trí nữa
+            return;
+        }
+
         if (player != null && surfaceEffector2D != null)
         {
             if (player.transform.position.y > lastPlayerPositionY)

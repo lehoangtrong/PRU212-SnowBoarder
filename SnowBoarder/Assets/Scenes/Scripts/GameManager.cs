@@ -10,6 +10,9 @@ public class GameManager : MonoBehaviour
     public bool isGameOver = false; // Flag to check if the game is over
     [SerializeField] private TextMeshProUGUI scoreText; // UI Text to display score
     [SerializeField] private TextMeshProUGUI distanceText; // UI Text to display distance
+    [SerializeField] private TextMeshProUGUI EndGameText; // UI Text to display end game message
+    [SerializeField] private TextMeshProUGUI YourScore;
+    [SerializeField] private TextMeshProUGUI YourDistance; // UI Text to display player's distance at the end
 
     [Header("Animator")]
     [SerializeField]
@@ -20,6 +23,12 @@ public class GameManager : MonoBehaviour
 
     [Header("Leader Board Manager")]
     public LeaderboardManager leaderboardManager;
+    [SerializeField]
+    public Animator EndGameAnimator;
+
+    [SerializeField] private GameObject EndGamePanel;
+    [SerializeField]
+    private GameObject MaskPanel;
 
     private void Awake()
     {
@@ -49,13 +58,12 @@ public class GameManager : MonoBehaviour
             distanceTraveled += Time.deltaTime * 5f; // Adjust speed multiplier as needed
             UpdateUI();
         }
-
-        // Check for game over condition (e.g., player has crashed)
-        if (isGameOver)
+        else
         {
-            Debug.Log("Game Over! Final Score: " + score);
-            // Handle game over state
-            HandleGameOver();
+            if (surfaceEffector2D != null)
+            {
+                surfaceEffector2D.speed = 0f; // Stop movement
+            }
         }
 
         animator.SetBool("IsGameOver", isGameOver); // Update animator state
@@ -63,8 +71,7 @@ public class GameManager : MonoBehaviour
 
     public void OnPlayerWin()
     {
-        //... các logic thắng khác
-
+        HandleGameOver(); // Call game over logic
         string playerName = "Player"; // Bạn có thể lấy tên từ một ô input
         int finalScore = this.score; // Lấy điểm cuối cùng
         Debug.Log("Player " + playerName + " won with score: " + finalScore);
@@ -83,19 +90,43 @@ public class GameManager : MonoBehaviour
         distanceText.text = "Distance: " + Mathf.FloorToInt(distanceTraveled) + "m";
     }
 
-    private void HandleGameOver()
+    public void HandleGameOver()
     {
-        // Stop the surface effector when the game is over
-        if (surfaceEffector2D != null)
-        {
-            surfaceEffector2D.speed = 0f; // Stop movement
-        }
-
+        EndGamePanel.SetActive(true); // Show the end game panel
+        MaskPanel.SetActive(true); // Show the mask panel
         // Additional game over logic can be added here (e.g., show game over screen)
         Debug.Log("Game Over! Final Score: " + score);
 
-        // Navigate to the Game Over scene or show a game over UI
-        // SceneManager.LoadScene("GameOverScene"); // Uncomment and set your game over scene
+        YourScore.text = "Score: " + score; // Set the player's score in the end game panel
+        YourDistance.text = "Distance: " + Mathf.FloorToInt(distanceTraveled) + "m"; // Set the player's distance in the end game panel
+        // Game Over
+        if (isGameOver)
+        {
+            EndGameText.text = "Game Over"; // Set the end game text to "Game Over"
+            EndGameAnimator.SetTrigger("Show"); // Trigger the end game panel animation
+            // thay text cua panel thanh "Game Over"
+        }
+        else
+        {
+            // victory
+            EndGameText.text = "You Win!"; // Set the end game text to "You Win"
+            EndGameAnimator.SetTrigger("Show"); // Trigger the end game panel animation
+        }
+    }
+
+    public void RestartGame()
+    {
+        // Reset game state
+        isGameOver = false;
+        score = 0;
+        distanceTraveled = 0f;
+        UpdateUI();
+        EndGamePanel.SetActive(false);
+        MaskPanel.SetActive(false);
+        // Reset animator state
+        animator.SetBool("IsGameOver", false);
+        // Optionally, reset player position or other game elements here
+        Debug.Log("Game restarted!");
     }
 }
 
