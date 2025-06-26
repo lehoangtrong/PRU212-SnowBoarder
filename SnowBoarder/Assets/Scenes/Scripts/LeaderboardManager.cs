@@ -15,11 +15,6 @@ public class LeaderboardManager : MonoBehaviour
 
     void Start()
     {
-        // (Tùy chọn) Thêm một vài điểm giả để kiểm tra
-        // AddNewScore("Player_B", 250);
-        // AddNewScore("Player_C", 100);
-
-        // Hiển thị bảng xếp hạng khi bắt đầu
         PopulateLeaderboard();
     }
 
@@ -34,6 +29,8 @@ public class LeaderboardManager : MonoBehaviour
 
         // Lưu lại danh sách đã cập nhật
         SaveSystem.SaveScores(scoreList);
+
+        PopulateLeaderboard();
     }
 
     private void PopulateLeaderboard()

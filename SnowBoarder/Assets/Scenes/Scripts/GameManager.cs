@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI EndGameText; // UI Text to display end game message
     [SerializeField] private TextMeshProUGUI YourScore;
     [SerializeField] private TextMeshProUGUI YourDistance; // UI Text to display player's distance at the end
+    [SerializeField] private GameObject player;
 
     [Header("Animator")]
     [SerializeField]
@@ -72,15 +73,15 @@ public class GameManager : MonoBehaviour
     public void OnPlayerWin()
     {
         HandleGameOver(); // Call game over logic
-        string playerName = "Player"; // Bạn có thể lấy tên từ một ô input
-        int finalScore = this.score; // Lấy điểm cuối cùng
-        Debug.Log("Player " + playerName + " won with score: " + finalScore);
+        //string playerName = "Player"; // Bạn có thể lấy tên từ một ô input
+        //int finalScore = this.score; // Lấy điểm cuối cùng
+        //Debug.Log("Player " + playerName + " won with score: " + finalScore);
 
-        // Gọi hàm để thêm điểm mới
-        if (leaderboardManager != null)
-        {
-            leaderboardManager.AddNewScore(playerName, finalScore);
-        }
+        //// Gọi hàm để thêm điểm mới
+        //if (leaderboardManager != null)
+        //{
+        //    leaderboardManager.AddNewScore(playerName, finalScore);
+        //}
     }
 
     public void UpdateUI()
@@ -123,6 +124,11 @@ public class GameManager : MonoBehaviour
         UpdateUI();
         EndGamePanel.SetActive(false);
         MaskPanel.SetActive(false);
+
+        // Reset player position if needed
+        player.transform.position = new Vector3(-36.41f, 11.79f, 0); // Reset player position
+        player.transform.rotation = Quaternion.identity; // Reset player rotation
+
         // Reset animator state
         animator.SetBool("IsGameOver", false);
         // Optionally, reset player position or other game elements here

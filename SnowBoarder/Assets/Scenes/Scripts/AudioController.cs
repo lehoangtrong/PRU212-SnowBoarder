@@ -10,6 +10,10 @@ public class AudioController : MonoBehaviour
     // Component AudioSource sẽ phát nhạc, sẽ được tự động lấy
     private AudioSource backgroundMusicSource;
 
+    [Header("Audio Source")]
+    // Kéo Audio Source dành cho SFX vào đây
+    [SerializeField] private AudioSource startSound;
+
     [Header("UI Components")]
     // Kéo Slider điều chỉnh âm lượng vào đây
     public Slider volumeSlider;
@@ -111,5 +115,20 @@ public class AudioController : MonoBehaviour
         if (volumeSlider != null) volumeSlider.onValueChanged.RemoveAllListeners();
         if (nextTrackButton != null) nextTrackButton.onClick.RemoveAllListeners();
         if (previousTrackButton != null) previousTrackButton.onClick.RemoveAllListeners();
+    }
+
+    public void PlaySound(AudioClip clip)
+    {
+        // Kiểm tra xem clip và source có tồn tại không
+        if (clip != null && startSound != null)
+        {
+            // PlayOneShot cho phép phát nhiều âm thanh chồng lên nhau
+            // Rất phù hợp cho tiếng bấm nút hoặc các hiệu ứng ngắn
+            startSound.PlayOneShot(clip);
+        }
+        else
+        {
+            Debug.LogWarning("Sound clip hoặc SFX Audio Source chưa được gán!");
+        }
     }
 }
